@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { ref} from '@vue/reactivity';
-import AfficheMaison from '@/components/AfficheMaison.vue';
 import { FormKit } from '@formkit/vue';
 import type { SchemaOfMaison } from '@/type';
 const maison = ref<SchemaOfMaison>({});
 import { supabase } from '@/supabase';
-import Form from '@/components/Form.vue';
 
 async function upsertMaison(dataForm, node) {
  const { data, error } = await supabase.from("Maison").upsert(dataForm).select();
@@ -14,16 +12,20 @@ async function upsertMaison(dataForm, node) {
 </script>
 
 <template>
+  
+    <div class="p-2">
+        <FormKit type="form" v-model="maison" @submit="upsertMaison">
+            <FormKit name="nomMaison" label="nom" type="text" />
+            <FormKit name="prix" label="prix" type="number"/>
+            <FormKit name="surface" label="surface" type="textarea"/>
+            <FormKit name="adresse" label="adresse" type="text"/>
+            <FormKit name="nbrSDB" label="nombre de SDB" type="number"/>
+            <FormKit name="nbrChambres" label="nombre de chambres" type="number"/>
+            <FormKit name="favori" label="Mettre en valeur" type="checkbox"/>
 
-    <div>
-        <div class="p-2">
-            <h2 class="text-2xl">Résultat (prévisualisation)</h2>
-            <AfficheMaison v-bind="maison" />
+        </FormKit>
         </div>
-
-        <Form />
-
-    </div>
+    
 </template>
 
 <style>
