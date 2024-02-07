@@ -4,14 +4,34 @@ import { FormKit } from '@formkit/vue';
 import type { SchemaOfMaison } from '@/type';
 const maison = ref<SchemaOfMaison>({});
 import { supabase } from '@/supabase';
+import AfficheMaison from './AfficheMaison.vue';
+import { useRouter, useRoute } from 'vue-router/auto';
+const router = useRouter();
 
 async function upsertMaison(dataForm, node) {
- const { data, error } = await supabase.from("Maison").upsert(dataForm).select();
+ const { data, error } = await supabase.from("Maison").upsert(dataForm).select("id");
  if (error) node.setErrors([error.message])
+ else{
+    console.log("data :", data);}
+    router.push({name:'/maisons/edit/[[id]]', params: {id: data[0].id}});
+}
+
+const route = useRoute('/maisons/edit/[[id]]');
+if (route.params.id) {
+    const { data, error } = await supabase.from("Maison").select("*").eq("id", route.params.id).single();
+    if (error) console.error("error", error);
+    else maison.value = data;
 }
 </script>
 
 <template>
+
+    <div class="p-2">
+        <h2 class="text-2xl">Résultat (prévisualisation)</h2>
+        <AfficheMaison v-bind="maison" />
+    </div>
+
+
   
     <div class="p-2">
         <FormKit type="form" v-model="maison" @submit="upsertMaison">

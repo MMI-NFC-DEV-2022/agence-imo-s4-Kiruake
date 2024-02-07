@@ -15,15 +15,10 @@ async function upsertMaison(dataForm, node) {
 
 <template>
 
-    <div>
-        <div class="p-2">
-            <h2 class="text-2xl">Résultat (prévisualisation)</h2>
-            <AfficheMaison v-bind="maison" />
-        </div>
+  
 
         <Form />
 
-    </div>
 </template>
 
 <style>

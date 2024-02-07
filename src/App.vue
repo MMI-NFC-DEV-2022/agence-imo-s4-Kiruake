@@ -8,10 +8,9 @@ import { RouterLink, RouterView } from 'vue-router'
 
     <nav class="*:text-red-500 flex flex-col">
       <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
-      <RouterLink to="/simple">Simple</RouterLink>
       <RouterLink to="/maisons">Maison</RouterLink>
       <RouterLink to="/connexion">Connexion</RouterLink>
+      <RouterLink to="/maisons/edit">Edit</RouterLink>
     </nav>
   </header>
 
@@ -22,3 +21,44 @@ import { RouterLink, RouterView } from 'vue-router'
   
   </Suspense>
 </template>
+
+<style>
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f3f3f3;
+  }
+
+
+  nav a {
+    margin-right: 1rem;
+  }
+
+  nav a:hover {
+    text-decoration: underline;
+  }
+
+  nav a.active {
+    font-weight: bold;
+  }
+
+  nav a.active:hover {
+    text-decoration: none;
+  }
+
+  .margin-auto {
+    margin: auto;
+  }
+
+  .justify-center {
+    justify-content: center;
+  }
+
+  .grid {
+    display: grid;
+  }
+
+
+</style>
